@@ -1,2 +1,0 @@
-
- [Time in CET][Message type][Name/ID][Channel ID]> ['Message', 'Link to attachment (if sent)' > 'New edited message (if message was edited)'] 
