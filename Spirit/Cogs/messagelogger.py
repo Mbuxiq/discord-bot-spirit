@@ -64,7 +64,7 @@ class logging(commands.Cog):
         if authorid == self.bot.user.id: return
         else:
             if not message.attachments: await self.append_new_line(f"[{time_detail}][Deleted][{authornick}/{authorid}][{message.channel.id}]> ['{message.content}']")
-            else: await self.append_new_line(f"[{time_detail}][{authornick}/{authorid}][Deleted][{message.channel.id}]> ['{message.content}', '{message.attachments[0].url}']")
+            else: await self.append_new_line(f"[{time_detail}][Deleted][{authornick}/{authorid}][{message.channel.id}]> ['{message.content}', '{message.attachments[0].url}']")
 
     @commands.command()
     @commands.guild_only()
