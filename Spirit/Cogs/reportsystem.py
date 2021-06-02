@@ -21,8 +21,8 @@ class ReportSystem(commands.Cog):
         user = message.guild.get_member(payload.user_id)
         guild = self.bot.get_guild(payload.guild_id)
         emoji = payload.emoji
-        await message.remove_reaction(emoji, user)
         if message.id == 849734638595211285:
+            await message.remove_reaction(emoji, user)
             maincategory = discord.utils.get(guild.categories, id=849734947627597864)
             channel2 = await guild.create_text_channel(name=f"{user.display_name}'s-report-ticket", category=maincategory)
             role = discord.utils.get(guild.roles, id=849352231047659540)
