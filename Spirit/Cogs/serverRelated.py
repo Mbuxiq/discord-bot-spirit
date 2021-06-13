@@ -3,11 +3,14 @@ from discord.ext import commands, tasks
 from discord.ext.commands import bot
 from discord.utils import get
 import asyncio
+from datetime import date
 
 
 class ServerRelated(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
+
+    #EVERYTHING HERE IS PURE PAIN
 
     ##
     @commands.Cog.listener()
@@ -27,7 +30,6 @@ class ServerRelated(commands.Cog):
 
     @commands.Cog.listener()
     async def on_member_join(self, member):
-        #rulesembed=discord.Embed(name="Rules:", description="[Warnings are point based system. Any violation adds more points to your account. If the points reach a certain value, you will get banned]", color=0x000000)
         rulesembed = discord.Embed(title="Rules", description="This is a placeholder. The rules still exist, but the system will be different in the future. For now, everything is moderated by a person.")
         rulesembed.add_field(name="1. Attacking other users is prohibited.", value="-", inline=False)
         rulesembed.add_field(name="2. Posting NSFW/NSFL is prohibited.", value="-", inline=False)
@@ -56,6 +58,10 @@ class ServerRelated(commands.Cog):
         rulesembed.add_field(name="8. Spamming is prohibited.", value="-", inline=False)
         rulesembed.add_field(name="9. Breaking Discord TOS is prohibited", value="-", inline=False)
         await ctx.send(embed=rulesembed)
+
+    async def day_check(self):
+        if date.today().weekday() == 4:
+            return True
 
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
@@ -101,6 +107,7 @@ class ServerRelated(commands.Cog):
         elif message.id == 849340074453893190:
             if emoji.id == 849012134540869672:
                 role = discord.utils.get(guild.roles, name='[Unverified Member]')
+                await message.remove_reaction(emoji, user)
                 await user.remove_roles(role)
                 newrole = discord.utils.get(guild.roles, name='[Verified Member]')
                 dash2 = discord.utils.get(guild.roles, id=849666767772581930)
@@ -162,6 +169,7 @@ class ServerRelated(commands.Cog):
         message = await ctx.send(embed = embed)
         await message.add_reaction('<:checkmark:849012134540869672>')
         await message.add_reaction('<:decline:849012134952173610>')
+
 
 
 def setup(bot):
