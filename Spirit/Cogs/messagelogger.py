@@ -9,18 +9,18 @@ class logging(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
-    async def append_new_line(self, text_to_append):
+    async def append_new_line(self, text_to_append): #<- Does what it says. Appends new line in a text file in a folder called 'Logs'. The text file is named like the current date
         today = datetime.datetime.now()
-        date_time = today.strftime("%d_%m_%Y")
-        with open(f"./Logs/{date_time}.txt", "a", encoding="utf-8") as a:
-            text_to_append = text_to_append.replace('\n', ' ').replace('\r', '')
+        date_time = today.strftime("%d_%m_%Y") #<- Set the time
+        with open(f"./Logs/{date_time}.txt", "a", encoding="utf-8") as a: #<- This is pretty straightforward, the only thing needed is the encoding. Some characters or emojis can't be appended if not using the utf-8 encoding.
+            text_to_append = text_to_append.replace('\n', ' ').replace('\r', '') #<- This is a bit of a mess. Basically I am removing new lines '\n' with just spaces, so multi lined messages will be long, and not fill up multiple lines
             a.write(f"\n{text_to_append}")
 
-    async def create_log(self):
-        date_time = datetime.datetime.now().strftime("%d_%m_%Y")
+    async def create_log(self): 
+        date_time = datetime.datetime.now().strftime("%d_%m_%Y") #<- Sets the time
         try:
-            with open(f"./Logs/{date_time}.txt", "x") as a:
-                info_message="\n[Time in CET][Message type][Name/ID][Channel ID]> ['Message', 'Link to attachment (if sent)' > 'New edited message (if message was edited)']\n---\n"
+            with open(f"./Logs/{date_time}.txt", "x") as a: #<- x means create folder if it doesn't exist. If it does exist, it will return an error
+                info_message="\n[Time in CET][Message type][Name/ID][Channel ID]> ['Message', 'Link to attachment (if sent)' > 'New edited message (if message was edited)']\n---\n" #<- Appending some info if people are gonna read the logs
                 a.write(info_message)
         except FileExistsError: pass
 
@@ -30,6 +30,8 @@ class logging(commands.Cog):
 
     ### Logging messages starts here \/
 
+
+    #Some of these look really complicated, but they are not. Its basically the same exact thing, but with some extras.
     @commands.Cog.listener()
     @commands.guild_only()
     async def on_message(self, message):
@@ -68,6 +70,8 @@ class logging(commands.Cog):
                     else: await self.append_new_line(f"[{time_detail}][Deleted][{authornick}/{authorid}][{message.channel.id}]> ['{message.content}', '{message.attachments[0].url}']")
         except AttributeError: pass
 
+
+    ### \/ This causes trouble. Logs cannot be downloaded the same date they were created. It's weird, and I didn't find any fixes, so just deal with it.
     @commands.command()
     @commands.guild_only()
     @commands.has_permissions(manage_messages=True)
