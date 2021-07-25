@@ -8,6 +8,8 @@ class ReportSystem(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
 
+        #I really dont want to comment this all, just call me on discord and I can describe it in detail.
+        
     @commands.command()
     async def reports(self, ctx):
         em = discord.Embed(title="Report users here: ", description="React to the emoji. A new channel will be created where you can give all the additional info")
