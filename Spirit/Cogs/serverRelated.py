@@ -11,6 +11,7 @@ class ServerRelated(commands.Cog):
         self.bot = bot
 
     #EVERYTHING HERE IS PURE PAIN
+    #/\ it is not, its just long
 
     ##
     @commands.Cog.listener()
@@ -59,9 +60,6 @@ class ServerRelated(commands.Cog):
         rulesembed.add_field(name="9. Breaking Discord TOS is prohibited", value="-", inline=False)
         await ctx.send(embed=rulesembed)
 
-    async def day_check(self):
-        if date.today().weekday() == 4:
-            return True
 
     @commands.Cog.listener()
     async def on_raw_reaction_add(self, payload):
