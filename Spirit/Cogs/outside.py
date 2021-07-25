@@ -17,7 +17,7 @@ class API(commands.Cog):
         querystring = {"term":term}
         headers = {
         'x-rapidapi-host': "mashape-community-urban-dictionary.p.rapidapi.com",
-        'x-rapidapi-key': "https://rapidapi.com/community/api/urban-dictionary"
+        'x-rapidapi-key': "https://rapidapi.com/community/api/urban-dictionary" #<- This is not the key, check out the site and register
         }
         async with ClientSession() as session:
             async with session.get(url, headers=headers, params=querystring) as response:
